@@ -1,5 +1,8 @@
 'use client'
 
+// Force dynamic rendering to avoid Supabase connection during build
+export const dynamic = 'force-dynamic'
+
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { supabaseClient, MensajeContacto, Proyecto } from '../../lib/supabase'

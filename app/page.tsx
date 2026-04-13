@@ -1,5 +1,8 @@
 'use client'
 
+// Force dynamic rendering to avoid Supabase connection during build
+export const dynamic = 'force-dynamic'
+
 import { Navigation } from '../components/layout/Navigation'
 import { Hero } from '../components/sections/Hero'
 import { PropuestaValor } from '../components/sections/PropuestaValor'
