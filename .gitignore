@@ -11,20 +11,28 @@ out/
 .env
 .env.local
 .env.*.local
+.env.example
 
 # Debug logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+lerna-debug.log*
 
-# IDE
+# IDE and Editor files
 .idea/
 .vscode/
 *.swp
 *.swo
+*.sublime-*
 
 # OS files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
 # Build outputs
@@ -33,13 +41,90 @@ build/
 
 # TypeScript
 *.tsbuildinfo
+next-env.d.ts
 
 # Testing
 coverage/
+.nyc_output
 
-# Misc
+# Documentation files (mantener en repo local, no subir a GitHub)
+*.md
+!package.json
+CAMBIOS-*.md
+CORREGIR-*.sql
+CREAR-*.sql
+EJECUTA-*.md
+ESTADO-*.md
+GUIA-*.md
+IMPLEMENTACION-*.md
+INICIO-*.md
+OPTIMIZACIONES-*.md
+PASOS-*.md
+RESUMEN-*.md
+SOLUCION-*.md
+CMS-*.md
+DOCUMENTO-*.md
+
+# SQL files (scripts de base de datos)
+*.sql
+supabase-setup.sql
+fix-policies.js
+
+# Kiro configuration (contiene credenciales)
+.kiro/
+.kiro/settings/
+.kiro/settings/mcp.json
+
+# Vercel
 .vercel
+
+# Logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-.vercel
-.env*.local
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# Temporary folders
+tmp/
+temp/

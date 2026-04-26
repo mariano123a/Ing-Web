@@ -123,6 +123,8 @@ export function Hero() {
           className="w-full h-full object-cover brightness-75 scale-110"
           src="https://lh3.googleusercontent.com/aida-public/AB6AXuAo-YnLcfmtYchA0UEg0JvmTQL6aVNYAKf1LSlBpjOKZsas_hWJxfdR7mljV3q3iZkbAHt82Lfp3524sYpcXHuHqZf7GGd3D7DJC5Cm2GVuIBcP6xcnAOjAm2mQgygs6Fx3xDo5gvfkQn5UtMPkx3PV8mBELJ1ByqlE1P4AZQyvpBeGxs3YbWCZYQ7Jya_YosOvseqz1TNWhCs9K4a7gYrPDoMxdz5v1gr1xB-3zQbbtVJlhtBCTKmZB7TEhFG1DldkdzSGJFLUzCk"
           alt="Modern high-end residence integrated into Andean mountain landscape"
+          loading="eager"
+          fetchPriority="high"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent" />
       </div>

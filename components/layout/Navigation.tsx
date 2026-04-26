@@ -1,7 +1,9 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import { useRouter } from 'next/navigation'
 import gsap from 'gsap'
+import { Settings } from 'lucide-react'
 
 const navLinks = [
   { name: 'Proyectos', href: '#proyectos' },
@@ -12,10 +14,12 @@ const navLinks = [
 
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false)
+  const router = useRouter()
   const navRef = useRef<HTMLElement>(null)
   const logoRef = useRef<HTMLDivElement>(null)
   const linksRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
+  const adminBtnRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -102,6 +106,25 @@ export function Navigation() {
           gsap.to(btn, { scale: 1.02, duration: 0.1 })
         })
       }
+
+      // Admin button hover
+      const adminBtn = adminBtnRef.current
+      if (adminBtn) {
+        adminBtn.addEventListener('mouseenter', () => {
+          gsap.to(adminBtn, { 
+            scale: 1.1, 
+            opacity: 0.8,
+            duration: 0.2 
+          })
+        })
+        adminBtn.addEventListener('mouseleave', () => {
+          gsap.to(adminBtn, { 
+            scale: 1, 
+            opacity: 0.3,
+            duration: 0.2 
+          })
+        })
+      }
     })
 
     return () => ctx.revert()
@@ -121,6 +144,7 @@ export function Navigation() {
         <div 
           ref={logoRef}
           className="text-2xl font-serif italic font-semibold text-emerald-900 cursor-pointer"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
           Casaliz
         </div>
@@ -142,13 +166,26 @@ export function Navigation() {
           ))}
         </div>
 
-        {/* CTA Button */}
-        <button
-          ref={buttonRef}
-          className="bg-primary text-on-primary px-8 py-3 rounded-lg font-sans font-semibold tracking-wide shadow-lg"
-        >
-          Iniciar Proyecto
-        </button>
+        {/* Right side buttons */}
+        <div className="flex items-center gap-4">
+          {/* Admin button - discreto */}
+          <button
+            ref={adminBtnRef}
+            onClick={() => router.push('/admin/login')}
+            className="p-2 rounded-lg opacity-30 hover:opacity-80 transition-all duration-300"
+            title="Panel de administración"
+          >
+            <Settings className="w-5 h-5 text-on-surface-variant" />
+          </button>
+
+          {/* CTA Button */}
+          <button
+            ref={buttonRef}
+            className="bg-primary text-on-primary px-8 py-3 rounded-lg font-sans font-semibold tracking-wide shadow-lg"
+          >
+            Iniciar Proyecto
+          </button>
+        </div>
       </div>
     </nav>
   )
