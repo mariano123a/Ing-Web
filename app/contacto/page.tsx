@@ -56,7 +56,7 @@ export default function ContactoPage() {
       <Navigation />
 
       {/* Hero */}
-      <section className="relative h-[450px] flex items-center overflow-hidden">
+      <section className="relative h-[350px] md:h-[450px] flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1920&q=80"

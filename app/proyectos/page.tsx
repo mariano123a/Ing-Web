@@ -109,7 +109,7 @@ export default function ProyectosPage() {
       <Navigation />
 
       {/* Hero */}
-      <section className="relative h-[500px] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[350px] md:h-[500px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1920&q=80"

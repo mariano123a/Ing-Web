@@ -111,7 +111,7 @@ export default function ProyectoDetallePage({ params }: { params: { id: string }
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl"
+              className="relative h-[300px] md:h-[500px] rounded-2xl overflow-hidden shadow-2xl"
             >
               <img
                 src={proyecto.imagenes?.[imagenActual] || 'https://via.placeholder.com/1200x600'}

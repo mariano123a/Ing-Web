@@ -69,7 +69,7 @@ export default function NosotrosPage() {
       <Navigation />
 
       {/* Hero */}
-      <section className="relative h-[600px] flex items-center overflow-hidden">
+      <section className="relative h-[400px] md:h-[600px] flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80"
