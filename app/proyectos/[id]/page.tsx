@@ -6,7 +6,7 @@ import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import gsap from 'gsap'
-import { getProyectoById, Proyecto } from '../../../lib/supabase'
+import { proyectos, Proyecto } from '../../../lib/data'
 import { ArrowLeft, MapPin, Home, TrendingUp, DollarSign, Calendar, CheckCircle } from 'lucide-react'
 
 export default function ProyectoDetallePage({ params }: { params: { id: string } }) {
@@ -17,17 +17,9 @@ export default function ProyectoDetallePage({ params }: { params: { id: string }
   const heroRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    async function fetchProyecto() {
-      try {
-        const data = await getProyectoById(params.id)
-        setProyecto(data)
-      } catch (error) {
-        console.error('Error fetching proyecto:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchProyecto()
+    const found = proyectos.find(p => p.id === params.id)
+    setProyecto(found || null)
+    setLoading(false)
   }, [params.id])
 
   useEffect(() => {

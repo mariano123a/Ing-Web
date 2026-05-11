@@ -1,25 +1,24 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
-import { useRouter } from 'next/navigation'
-import gsap from 'gsap'
-import { Settings } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { Settings, Menu, X, ChevronRight } from 'lucide-react'
 
 const navLinks = [
-  { name: 'Proyectos', href: '#proyectos' },
-  { name: 'Servicios', href: '#servicios' },
-  { name: 'Nosotros', href: '#nosotros' },
-  { name: 'Contacto', href: '#contacto' },
+  { name: 'Inicio', href: '/' },
+  { name: 'Proyectos', href: '/proyectos' },
+  { name: 'Servicios', href: '/servicios' },
+  { name: 'Nosotros', href: '/nosotros' },
+  { name: 'Contacto', href: '/contacto' },
 ]
 
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false)
-  const router = useRouter()
-  const navRef = useRef<HTMLElement>(null)
-  const logoRef = useRef<HTMLDivElement>(null)
-  const linksRef = useRef<HTMLDivElement>(null)
-  const buttonRef = useRef<HTMLButtonElement>(null)
-  const adminBtnRef = useRef<HTMLButtonElement>(null)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const pathname = usePathname()
+
+  const isHome = pathname === '/'
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,163 +29,117 @@ export function Navigation() {
   }, [])
 
   useEffect(() => {
-    if (!navRef.current) return
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+  }, [mobileOpen])
 
-    const ctx = gsap.context(() => {
-      // Nav slide in
-      gsap.set(navRef.current, { y: -100 })
-      gsap.to(navRef.current, {
-        y: 0,
-        duration: 0.6,
-        ease: 'power2.out',
-      })
+  const navBg = scrolled || !isHome
+    ? 'bg-white/95 backdrop-blur-xl shadow-sm border-b border-stone-100'
+    : 'bg-transparent'
 
-      // Logo hover
-      const logo = logoRef.current
-      if (logo) {
-        logo.addEventListener('mouseenter', () => {
-          gsap.to(logo, { scale: 1.02, duration: 0.2 })
-        })
-        logo.addEventListener('mouseleave', () => {
-          gsap.to(logo, { scale: 1, duration: 0.2 })
-        })
-      }
-
-      // Links stagger animation
-      const links = linksRef.current?.children
-      if (links) {
-        gsap.set(links, { opacity: 0, y: -20 })
-        gsap.to(links, {
-          opacity: 1,
-          y: 0,
-          duration: 0.4,
-          stagger: 0.1,
-          delay: 0.3,
-          ease: 'power2.out',
-        })
-
-        // Links hover
-        Array.from(links).forEach((link) => {
-          link.addEventListener('mouseenter', () => {
-            gsap.to(link, { y: -2, duration: 0.2 })
-          })
-          link.addEventListener('mouseleave', () => {
-            gsap.to(link, { y: 0, duration: 0.2 })
-          })
-        })
-      }
-
-      // Button animation
-      const btn = buttonRef.current
-      if (btn) {
-        gsap.set(btn, { opacity: 0, scale: 0.9 })
-        gsap.to(btn, {
-          opacity: 1,
-          scale: 1,
-          duration: 0.4,
-          delay: 0.5,
-          ease: 'back.out(1.7)',
-        })
-
-        // Button hover
-        btn.addEventListener('mouseenter', () => {
-          gsap.to(btn, {
-            scale: 1.02,
-            boxShadow: '0 10px 30px rgba(22, 56, 40, 0.2)',
-            duration: 0.2,
-          })
-        })
-        btn.addEventListener('mouseleave', () => {
-          gsap.to(btn, { scale: 1, boxShadow: 'none', duration: 0.2 })
-        })
-        btn.addEventListener('mousedown', () => {
-          gsap.to(btn, { scale: 0.98, duration: 0.1 })
-        })
-        btn.addEventListener('mouseup', () => {
-          gsap.to(btn, { scale: 1.02, duration: 0.1 })
-        })
-      }
-
-      // Admin button hover
-      const adminBtn = adminBtnRef.current
-      if (adminBtn) {
-        adminBtn.addEventListener('mouseenter', () => {
-          gsap.to(adminBtn, { 
-            scale: 1.1, 
-            opacity: 0.8,
-            duration: 0.2 
-          })
-        })
-        adminBtn.addEventListener('mouseleave', () => {
-          gsap.to(adminBtn, { 
-            scale: 1, 
-            opacity: 0.3,
-            duration: 0.2 
-          })
-        })
-      }
-    })
-
-    return () => ctx.revert()
-  }, [])
+  const textColor = scrolled || !isHome ? 'text-stone-800' : 'text-white'
+  const linkColor = scrolled || !isHome ? 'text-stone-600 hover:text-primary' : 'text-white/80 hover:text-white'
 
   return (
-    <nav
-      ref={navRef}
-      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-        scrolled 
-          ? 'bg-stone-50/95 backdrop-blur-xl shadow-sm' 
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="flex justify-between items-center px-6 md:px-12 py-6 max-w-screen-2xl mx-auto">
-        {/* Logo */}
-        <div 
-          ref={logoRef}
-          className="text-2xl font-serif italic font-semibold text-emerald-900 cursor-pointer"
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        >
-          Casaliz
-        </div>
+    <>
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${navBg}`}>
+        <div className="flex justify-between items-center px-6 md:px-12 py-4 max-w-7xl mx-auto">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2">
+            <span className={`text-2xl font-headline italic font-bold ${scrolled || !isHome ? 'text-primary' : 'text-white'} transition-colors`}>
+              Casaliz
+            </span>
+          </Link>
 
-        {/* Desktop Nav */}
-        <div ref={linksRef} className="hidden md:flex items-center space-x-12">
-          {navLinks.map((link, index) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className={`font-serif text-lg tracking-tight font-light transition-all duration-300 ${
-                index === 0 
-                  ? 'text-emerald-900 border-b-2 border-emerald-900 pb-1' 
-                  : 'text-stone-500 hover:text-emerald-700'
-              }`}
+          {/* Desktop Nav */}
+          <div className="hidden lg:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className={`text-sm font-medium tracking-wide transition-all duration-300 ${
+                  pathname === link.href
+                    ? scrolled || !isHome ? 'text-primary' : 'text-white font-semibold'
+                    : linkColor
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+
+          {/* Right side */}
+          <div className="flex items-center gap-3">
+            <Link
+              href="/admin/login"
+              className={`hidden sm:flex p-2 rounded-lg transition-all ${scrolled || !isHome ? 'text-stone-400 hover:text-primary' : 'text-white/50 hover:text-white'}`}
+              title="Admin"
             >
-              {link.name}
-            </a>
-          ))}
+              <Settings className="w-5 h-5" />
+            </Link>
+
+            <Link
+              href="/contacto"
+              className="hidden md:inline-flex bg-primary text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:bg-primary/90 transition-colors shadow-lg"
+            >
+              Iniciar Proyecto
+            </Link>
+
+            {/* Mobile Toggle */}
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className={`lg:hidden p-2 rounded-lg ${scrolled || !isHome ? 'text-stone-700' : 'text-white'}`}
+            >
+              {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
+      </nav>
 
-        {/* Right side buttons */}
-        <div className="flex items-center gap-4">
-          {/* Admin button - discreto */}
-          <button
-            ref={adminBtnRef}
-            onClick={() => router.push('/admin/login')}
-            className="p-2 rounded-lg opacity-30 hover:opacity-80 transition-all duration-300"
-            title="Panel de administración"
-          >
-            <Settings className="w-5 h-5 text-on-surface-variant" />
-          </button>
+      {/* Mobile Menu */}
+      <div className={`fixed inset-0 z-40 lg:hidden transition-all duration-500 ${mobileOpen ? 'visible opacity-100' : 'invisible opacity-0'}`}>
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
+        <div className={`absolute right-0 top-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl transform transition-transform duration-500 ${mobileOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+          <div className="p-6 pt-20">
+            <div className="space-y-1">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className={`flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                    pathname === link.href
+                      ? 'bg-primary/10 text-primary'
+                      : 'text-stone-600 hover:bg-stone-50'
+                  }`}
+                >
+                  {link.name}
+                  <ChevronRight className="w-4 h-4" />
+                </Link>
+              ))}
+            </div>
 
-          {/* CTA Button */}
-          <button
-            ref={buttonRef}
-            className="bg-primary text-on-primary px-8 py-3 rounded-lg font-sans font-semibold tracking-wide shadow-lg"
-          >
-            Iniciar Proyecto
-          </button>
+            <div className="mt-8 pt-6 border-t border-stone-100">
+              <Link
+                href="/contacto"
+                onClick={() => setMobileOpen(false)}
+                className="flex w-full items-center justify-center bg-primary text-white px-6 py-3 rounded-lg font-semibold"
+              >
+                Iniciar Proyecto
+              </Link>
+            </div>
+
+            <div className="mt-8 pt-6 border-t border-stone-100">
+              <p className="text-xs text-stone-400 mb-3">Contacto</p>
+              <p className="text-sm text-stone-600">info@casaliz.pe</p>
+              <p className="text-sm text-stone-600">+51 84 123 456</p>
+            </div>
+          </div>
         </div>
       </div>
-    </nav>
+    </>
   )
 }
