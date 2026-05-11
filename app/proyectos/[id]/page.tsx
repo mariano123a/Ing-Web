@@ -114,7 +114,7 @@ export default function ProyectoDetallePage({ params }: { params: { id: string }
               className="relative h-[300px] md:h-[500px] rounded-2xl overflow-hidden shadow-2xl"
             >
               <img
-                src={proyecto.imagenes?.[imagenActual] || 'https://via.placeholder.com/1200x600'}
+                src={proyecto.imagenes?.[imagenActual] || 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&q=80'}
                 alt={proyecto.nombre}
                 className="w-full h-full object-cover"
               />

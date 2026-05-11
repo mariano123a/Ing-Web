@@ -60,7 +60,7 @@ const IMG = {
   // Proyectos residenciales
   proj1: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80',
   proj2: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80',
-  proj3: 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=1200&q=80',
+  proj3: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200&q=80',
   proj4: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1200&q=80',
   // Proyectos comerciales
   proj5: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80',
@@ -71,7 +71,7 @@ const IMG = {
   // Industrial
   proj9: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&q=80',
   // Mixto
-  proj10: 'https://images.unsplash.com/photo-1600573472591-ee6c563aaec3?w=1200&q=80',
+  proj10: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80',
   // Servicios
   serv1: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&q=80',
   serv2: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80',
@@ -94,7 +94,7 @@ const IMG = {
   test5: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&q=80',
   test6: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&q=80',
   test7: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80',
-  test8: 'https://images.unsplash.com/photo-1554151228-14d9def656ec?w=200&q=80',
+  test8: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80',
   // Galería detalle
   detail1: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200&q=80',
   detail2: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80',

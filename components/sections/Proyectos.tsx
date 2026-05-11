@@ -154,7 +154,7 @@ export function Proyectos() {
               >
                 <div className="w-full h-full relative">
                   <img
-                    src={proyecto.imagenes?.[0] || 'https://via.placeholder.com/800x600?text=Sin+Imagen'}
+                    src={proyecto.imagenes?.[0] || 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80'}
                     alt={proyecto.nombre}
                     className="w-full h-full object-cover"
                     loading="lazy"
