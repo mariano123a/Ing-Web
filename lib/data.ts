@@ -59,7 +59,7 @@ const IMG = {
   hero3: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1920&q=80',
   // Proyectos residenciales
   proj1: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80',
-  proj2: 'https://images.unsplash.com/photo-1600585154526-7d7a6792a083?w=1200&q=80',
+  proj2: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80',
   proj3: 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=1200&q=80',
   proj4: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1200&q=80',
   // Proyectos comerciales
