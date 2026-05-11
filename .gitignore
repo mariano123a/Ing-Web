@@ -11,7 +11,7 @@ out/
 .env
 .env.local
 .env.*.local
-.env.example
+!.env.example
 
 # Debug logs
 npm-debug.log*
@@ -41,18 +41,13 @@ build/
 
 # TypeScript
 *.tsbuildinfo
-next-env.d.ts
 
 # Testing
 coverage/
 .nyc_output
 
-# Documentation files (mantener en repo local, no subir a GitHub)
-*.md
-!package.json
+# Local notes and temporary documentation exports
 CAMBIOS-*.md
-CORREGIR-*.sql
-CREAR-*.sql
 EJECUTA-*.md
 ESTADO-*.md
 GUIA-*.md
@@ -65,8 +60,10 @@ SOLUCION-*.md
 CMS-*.md
 DOCUMENTO-*.md
 
-# SQL files (scripts de base de datos)
-*.sql
+# Local database helper scripts
+CORREGIR-*.sql
+CREAR-*.sql
+SOLUCION-*.sql
 supabase-setup.sql
 fix-policies.js
 
