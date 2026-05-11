@@ -7,7 +7,9 @@ import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import gsap from 'gsap'
 import { proyectos, Proyecto } from '../../../lib/data'
-import { ArrowLeft, MapPin, Home, TrendingUp, DollarSign, Calendar, CheckCircle } from 'lucide-react'
+import { ArrowLeft, MapPin, Home, TrendingUp, DollarSign, CheckCircle } from 'lucide-react'
+import { Navigation } from '../../../components/layout/Navigation'
+import { Footer } from '../../../components/layout/Footer'
 
 export default function ProyectoDetallePage({ params }: { params: { id: string } }) {
   const [proyecto, setProyecto] = useState<Proyecto | null>(null)
@@ -99,21 +101,7 @@ export default function ProyectoDetallePage({ params }: { params: { id: string }
 
   return (
     <div className="min-h-screen bg-surface">
-      {/* Header con botón de regreso */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-surface/95 backdrop-blur-xl border-b border-outline-variant">
-        <div className="max-w-7xl mx-auto px-8 py-4 flex items-center justify-between">
-          <button
-            onClick={() => router.push('/')}
-            className="flex items-center gap-2 text-on-surface hover:text-primary transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            <span className="font-semibold">Volver</span>
-          </button>
-          <div className="text-sm text-on-surface-variant">
-            {proyecto.tipo} • {proyecto.estado}
-          </div>
-        </div>
-      </div>
+      <Navigation />
 
       {/* Hero Section */}
       <div ref={heroRef} className="pt-24 pb-12">
@@ -263,7 +251,7 @@ export default function ProyectoDetallePage({ params }: { params: { id: string }
                         <span className="text-sm font-semibold uppercase tracking-wide">Precio Referencial</span>
                       </div>
                       <p className="text-4xl font-bold text-primary">
-                        S/ {proyecto.precio_referencial.toLocaleString()}
+                        {proyecto.precio_referencial}
                       </p>
                     </div>
                   )}
@@ -286,12 +274,7 @@ export default function ProyectoDetallePage({ params }: { params: { id: string }
 
                   {/* CTA */}
                   <button
-                    onClick={() => {
-                      const contactoSection = document.getElementById('contacto')
-                      if (contactoSection) {
-                        router.push('/#contacto')
-                      }
-                    }}
+                    onClick={() => router.push('/contacto')}
                     className="w-full bg-primary text-on-primary py-4 rounded-lg font-bold uppercase tracking-wide hover:brightness-110 transition-all shadow-lg"
                   >
                     Solicitar Información
@@ -307,14 +290,7 @@ export default function ProyectoDetallePage({ params }: { params: { id: string }
         </div>
       </div>
 
-      {/* Footer simple */}
-      <div className="bg-primary text-on-primary py-8 mt-20">
-        <div className="max-w-7xl mx-auto px-8 text-center">
-          <p className="text-sm">
-            © 2026 Casaliz. Todos los derechos reservados.
-          </p>
-        </div>
-      </div>
+      <Footer />
     </div>
   )
 }

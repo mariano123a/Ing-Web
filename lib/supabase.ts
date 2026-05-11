@@ -27,21 +27,45 @@ export const supabaseClient = (supabaseUrl && supabaseAnonKey)
         },
       },
     })
-  : {
-      // Mock client for build time when env vars are not available
-      from: () => ({
-        select: () => ({ data: [], error: null }),
-        insert: () => ({ data: null, error: null }),
-        order: () => ({ data: [], error: null }),
-        eq: () => ({ data: null, error: null }),
-        single: () => ({ data: null, error: null }),
-      }),
-      auth: {
-        onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
-        signInWithPassword: () => Promise.resolve({ data: null, error: null }),
-        signOut: () => Promise.resolve({ error: null }),
-      },
-    } as any
+  : (() => {
+      // Mock Postgrest query builder that supports chaining
+      const createQueryBuilder = (tableData: any[] = []) => {
+        let currentData = [...tableData]
+        let error = null
+
+        const qb: any = {
+          select: () => qb,
+          order: () => qb,
+          eq: (field: string, value: any) => {
+            currentData = currentData.filter((row: any) => row[field] === value)
+            return qb
+          },
+          single: () => Promise.resolve({ data: currentData[0] || null, error }),
+          insert: () => ({ select: () => ({ single: () => Promise.resolve({ data: null, error }) }) }),
+          update: () => ({ eq: () => ({ select: () => ({ single: () => Promise.resolve({ data: null, error }) }) }) }),
+          delete: () => ({ eq: () => Promise.resolve({ error }) }),
+          then: (resolve: any) => Promise.resolve({ data: currentData, error }).then(resolve),
+        }
+        return qb
+      }
+
+      return {
+        from: (table: string) => {
+          const mockData: Record<string, any[]> = {
+            proyectos: [],
+            mensajes_contacto: [],
+            contenido_sitio: [],
+          }
+          return createQueryBuilder(mockData[table] || [])
+        },
+        auth: {
+          onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
+          signInWithPassword: () => Promise.resolve({ data: { user: null, session: null }, error: null }),
+          signOut: () => Promise.resolve({ error: null }),
+          getUser: () => Promise.resolve({ data: { user: null }, error: null }),
+        },
+      } as any
+    })()
 
 // Tipos para las tablas
 export type Proyecto = {
