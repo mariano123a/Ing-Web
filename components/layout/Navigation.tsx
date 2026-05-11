@@ -18,12 +18,13 @@ export function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const pathname = usePathname()
 
-  const isHome = pathname === '/'
+  const isAdmin = pathname?.startsWith('/admin')
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50)
     }
+    handleScroll()
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
@@ -36,12 +37,19 @@ export function Navigation() {
     }
   }, [mobileOpen])
 
-  const navBg = scrolled || !isHome
-    ? 'bg-white/95 backdrop-blur-xl shadow-sm border-b border-stone-100'
-    : 'bg-transparent'
+  const isTransparent = !scrolled && !isAdmin && !mobileOpen
 
-  const textColor = scrolled || !isHome ? 'text-stone-800' : 'text-white'
-  const linkColor = scrolled || !isHome ? 'text-stone-600 hover:text-primary' : 'text-white/80 hover:text-white'
+  const navBg = isTransparent
+    ? 'bg-transparent'
+    : 'bg-white/95 backdrop-blur-xl shadow-sm border-b border-stone-100'
+
+  const textColor = isTransparent ? 'text-white' : 'text-stone-800'
+  const linkColor = isTransparent ? 'text-white/80 hover:text-white' : 'text-stone-600 hover:text-primary'
+
+  const logoColor = isTransparent ? 'text-white' : 'text-primary'
+  const activeLinkColor = isTransparent ? 'text-white font-semibold' : 'text-primary'
+  const adminIconColor = isTransparent ? 'text-white/50 hover:text-white' : 'text-stone-400 hover:text-primary'
+  const mobileIconColor = isTransparent ? 'text-white' : 'text-stone-700'
 
   return (
     <>
@@ -49,7 +57,7 @@ export function Navigation() {
         <div className="flex justify-between items-center px-6 md:px-12 py-4 max-w-7xl mx-auto">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <span className={`text-2xl font-headline italic font-bold ${scrolled || !isHome ? 'text-primary' : 'text-white'} transition-colors`}>
+            <span className={`text-2xl font-headline italic font-bold ${logoColor} transition-colors`}>
               Casaliz
             </span>
           </Link>
@@ -62,7 +70,7 @@ export function Navigation() {
                 href={link.href}
                 className={`text-sm font-medium tracking-wide transition-all duration-300 ${
                   pathname === link.href
-                    ? scrolled || !isHome ? 'text-primary' : 'text-white font-semibold'
+                    ? activeLinkColor
                     : linkColor
                 }`}
               >
@@ -75,7 +83,7 @@ export function Navigation() {
           <div className="flex items-center gap-3">
             <Link
               href="/admin/login"
-              className={`hidden sm:flex p-2 rounded-lg transition-all ${scrolled || !isHome ? 'text-stone-400 hover:text-primary' : 'text-white/50 hover:text-white'}`}
+              className={`hidden sm:flex p-2 rounded-lg transition-all ${adminIconColor}`}
               title="Admin"
             >
               <Settings className="w-5 h-5" />
@@ -91,7 +99,7 @@ export function Navigation() {
             {/* Mobile Toggle */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className={`lg:hidden p-2 rounded-lg ${scrolled || !isHome ? 'text-stone-700' : 'text-white'}`}
+              className={`lg:hidden p-2 rounded-lg ${mobileIconColor}`}
             >
               {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
